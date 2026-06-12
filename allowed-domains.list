@@ -1,0 +1,139 @@
+# Domains resolved at firewall-init time (A records added to the ipset).
+# One domain per line. Blank lines and `#` comments are ignored.
+# See init-firewall.sh for CDN-pool CIDRs (allowed-ips.list) and live-fetched
+# ranges (GitHub meta, AWS ip-ranges, Google goog.json).
+
+# Anthropic / Claude Code
+api.anthropic.com
+statsig.anthropic.com
+sentry.io
+# Claude Code native installer (curl https://claude.ai/install.sh | bash)
+claude.ai
+downloads.claude.ai
+
+# npm
+registry.npmjs.org
+registry.yarnpkg.com
+
+# Python
+pypi.org
+files.pythonhosted.org
+
+# Ubuntu apt mirrors
+archive.ubuntu.com
+security.ubuntu.com
+ppa.launchpad.net
+esm.ubuntu.com
+
+# GitHub CLI updates
+cli.github.com
+
+# Bun
+bun.sh
+
+# Node downloads (for nvm)
+nodejs.org
+
+# JSON Schema lookups (editors, tooling)
+json.schemastore.org
+www.schemastore.org
+
+# Devcontainer spec
+containers.dev
+
+# LLM / AI APIs
+api.groq.com
+openrouter.ai
+api.jina.ai
+
+# Stripe
+api.stripe.com
+docs.stripe.com           # Stripe security/Checkout/Portal docs
+
+# Docs sites (CDN-fronted — see CDN CIDR caveat in README)
+supabase.com              # Supabase main site (docs live under /docs)
+docs.supabase.com         # Supabase docs (sometimes aliased)
+nextjs.org                # Next.js docs
+owasp.org                 # OWASP Top 10 / ASVS
+developer.mozilla.org     # MDN
+
+# VS Code Server + extensions
+code.visualstudio.com
+update.code.visualstudio.com
+vscode.download.prss.microsoft.com
+packages.microsoft.com
+main.vscode-cdn.net
+marketplace.visualstudio.com
+gallerycdn.vsassets.io
+aka.ms
+
+# Docker Hub (rootless docker pulls). Note: image *blobs* are served from
+# production.cloudfront.docker.com which sits on AWS CloudFront — the live
+# CIDR fetch in init-firewall.sh covers those rotating edges.
+registry-1.docker.io
+index.docker.io
+auth.docker.io
+hub.docker.com
+# Docker static binaries (manual updates of ~/bin docker tooling)
+download.docker.com
+
+# GitHub Container Registry
+ghcr.io
+pkg-containers.githubusercontent.com
+
+# Playwright browser binaries (Edge channel via Akamai, Chromium snapshots via Google Cloud Storage)
+playwright.download.prss.microsoft.com
+storage.googleapis.com
+
+# Research / docs for ngx-material-timepicker lazy-loading investigation
+# (most are CDN-fronted — see README CDN-CIDR caveat; if curl hangs ~135s,
+# add the edge /24 to allowed-ips.list rather than the hostname here.)
+# Package size + metadata
+bundlephobia.com
+pkg-size.dev
+www.npmjs.com
+unpkg.com
+cdn.jsdelivr.net
+www.jsdelivr.com
+# Source + community
+github.com                # web UI (IP ranges already covered by api.github.com/meta fetch)
+stackoverflow.com
+stackexchange.com
+medium.com
+dev.to
+# Angular docs + blog
+angular.dev
+angular.io
+blog.angular.io
+blog.angular.dev
+# Web platform guidance (Google-owned — IPs typically covered by goog.json fetch)
+web.dev
+# Discovery
+www.google.com
+# CZUB - DEV
+lvxmavfakdudcurpsgoe.supabase.co
+# Recovery.pr internal services (TP backend → ADFS + DRS roles API)
+devfederation.recovery.pr
+devapps06.recovery.pr
+
+#Supabase telemetry
+eu.i.posthog.com
+
+# czub-3 session pooler
+aws-1-us-east-2.pooler.supabase.com
+# subscription session pooler
+aws-1-us-west-2.pooler.supabase.com
+
+# subscription SUPABASE_URL - for app access
+nlmbtvylzuwxnfmmrjiv.supabase.co
+
+# alt-stars.com (Azure-hosted). IP-based firewall can't do a true *.alt-stars.com
+# wildcard — list each subdomain explicitly; re-resolved on every reload.
+# apex/www/api -> 20.80.176.187 ; demo2 hosts -> 4.149.232.68 (as of 2026-06-03)
+alt-stars.com
+www.alt-stars.com
+api.alt-stars.com
+demo2.alt-stars.com
+api.demo2.alt-stars.com
+
+# aidevs course platform — hub.ag3nts.org is Cloudflare-fronted; CIDRs in allowed-ips.list

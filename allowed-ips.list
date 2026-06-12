@@ -1,0 +1,41 @@
+# Direct IPs and CIDRs added verbatim to the ipset (no DNS lookup).
+# Use this for CDN-fronted hosts whose edge pool rotates IPs across a /24
+# (Azure Front Door, Fastly, Akamai, Edgio, Google global LB, ...).
+# Symptom of needing an entry here: ~135-second curl timeouts despite the
+# hostname being in allowed-domains.list. See README for the full playbook.
+# One entry per line. Blank lines and `#` comments are ignored.
+
+# Project DB server (reachable via Windows-host VPN)
+172.23.7.5
+
+# Azure Front Door edge pool that fronts code.visualstudio.com (rotates IPs in /24)
+150.171.110.0/24
+
+# Fastly edge pool that fronts vscode.download.prss.microsoft.com (VS Code Server + CLI binaries)
+146.75.106.0/24
+
+# Google global LB range fronting downloads.claude.ai (rotates)
+35.190.0.0/16
+
+# Akamai edge /24 fronting playwright.download.prss.microsoft.com (Edge browser binaries).
+# The host straddles Fastly (146.75.106.0/24 above) and Akamai; this covers the Akamai half.
+23.219.160.0/24
+
+# Edgio/Limelight edge /24s fronting docs.stripe.com. Last octet rotates so
+# dig-at-boot misses the IP the client is steered to; pin the whole /24.
+198.137.150.0/24
+198.202.176.0/24
+
+# Cloudflare edge /24s fronting cdn.sheetjs.com (xlsx tarball pulled by npm install).
+# Cloudflare anycast — pinning the two A-records would break on edge rotation.
+104.21.80.0/24
+172.67.172.0/24
+
+# Cloudflare edge /24s fronting hub.ag3nts.org (AI agents course platform).
+104.21.63.0/24
+172.67.170.0/24
+
+# Azure Front Door edge /24s fronting packages.microsoft.com (Azure CLI + MS apt repo).
+# Domain is in allowed-domains.list but edge IPs rotate; pin the /24s seen at install time.
+13.107.246.0/24
+13.107.213.0/24
