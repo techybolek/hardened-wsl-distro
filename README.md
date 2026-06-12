@@ -22,8 +22,7 @@ Source-of-truth files for **`Ubuntu-24.04`** (alias `wsl-dev`): a locked-down WS
 | `allowed-domains.list` / `allowed-ips.list` | Allow-list data (FQDNs / direct CIDRs). |
 | `sync-firewall.ps1` | Pull/Push the firewall script + lists; Push reloads it in-distro. |
 | `wsl-transfer.ps1` | Byte-exact `Copy-FromDistro` / `Copy-ToDistro` via base64. |
-| `wsl.conf` / `settings.json` | Reference copies of the distro's `/etc/wsl.conf` and Claude Code settings. |
-| `backups/` | `.vhdx` snapshots. |
+| `wsl.conf` / `Reference copies of the distro's `/etc/wsl.conf` |
 
 ## Quick start
 
